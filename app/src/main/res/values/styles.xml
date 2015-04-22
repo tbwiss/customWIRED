@@ -1,0 +1,15 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+    <style name="AppThemeLight" parent="android:Theme.Holo.Light">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="AppThemeLightMin" parent="android:Theme.Holo.Light.Dialog.MinWidth">
+        <!-- Customize your theme here. -->
+    </style>
+
+</resources>
