@@ -16,6 +16,7 @@ import com.wiss.thom.wiredmobpro.model.Categories;
 import com.wiss.thom.wiredmobpro.model.Post;
 import com.wiss.thom.wiredmobpro.model.PostORM;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -30,9 +31,7 @@ public class GearFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_gear_layout, container, false);
         list = PostORM.getAllPostsByCategory(getActivity(), Categories.gear);
-        //
-        //  Sort the list!!! comparator datestamp..
-        //
+        Collections.sort(list);
         CustomListAdapter adapter = new CustomListAdapter(getActivity(), list);
         setListAdapter(adapter);
         return rootView;

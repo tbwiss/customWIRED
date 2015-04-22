@@ -118,7 +118,7 @@ public class DetailedArticle extends Activity {
         categoryTextView.setText(postUI.getBody().toUpperCase());
         titleTextView.setText(postUI.getTitle().toUpperCase());
         imageView.setImageBitmap(postUI.getImage());
-        mainTextView.setText(Html.fromHtml(postUI.getMain()));
+        mainTextView.setText(postUI.getMain());
         dateTextView.setText(postUI.getPostedDate());
         authorTextView.setText(postUI.getAuthor());
         linkTextView.setText(postUI.getUrl());
@@ -149,6 +149,7 @@ public class DetailedArticle extends Activity {
 
             String containerDetailed = "header#post-header";
             String containerMain = "div#start-of-content";
+            StringBuilder stringBuilder = new StringBuilder();
 
             try {
 
@@ -157,13 +158,18 @@ public class DetailedArticle extends Activity {
                 Element detailedElement = getFirstHtmlElement(url,containerDetailed);
                 postInside.setAuthor(detailedElement.getElementsByTag("span").first().text());  // author
                 postInside.setPhotographer(detailedElement.getElementsByTag("span").toggleClass("credit").text());  //photographer
-                Elements linkDetailedElmt = detailedElement.getElementsByTag("time");
-                postInside.setPostedDate(linkDetailedElmt.attr("pubdate"));  // posted date
-                Element mainElement = getFirstHtmlElement(url,containerMain);
-                if(mainElement == null){
-                    postInside.setMain("<p>" + post.getPreview() + "...</p>");
+                Element mainElement = getFirstHtmlElement(url,containerMain); //main
+
+                if(mainElement.text() == null){
+                    postInside.setMain(post.getPreview() + "...");  // no useful text, show preview
                 }else {
-                    postInside.setMain(mainElement.getAllElements().html());
+                    Elements pElements = mainElement.getElementsByTag("p");
+                    for(Element p : pElements){
+                        stringBuilder.append("\n");
+                        stringBuilder.append(p.text());
+                        stringBuilder.append("\n");
+                    }
+                    postInside.setMain(stringBuilder.toString());
                 }
                 //-----------------------------------------------------
 
@@ -187,7 +193,7 @@ public class DetailedArticle extends Activity {
             toUpdatePost.setAuthor(postInside.getAuthor());
             toUpdatePost.setPhotographer(postInside.getPhotographer());
             toUpdatePost.setMain(postInside.getMain());
-            toUpdatePost.setPostedDate(postInside.getPostedDate());
+            toUpdatePost.setPostedDate(post.getPostedDate());
 
             PostORM.updatePost(getBaseContext(), toUpdatePost);
 
@@ -209,16 +215,6 @@ public class DetailedArticle extends Activity {
             String content = EntityUtils.toString(resp.getEntity());
             Document doc = Jsoup.parse(content);
             org.jsoup.nodes.Element masthead = doc.select(selectedItem).first();
-            return masthead;
-        }
-
-        private Elements getListOfElement(URL url, String selectedItem) throws IOException, URISyntaxException {
-            DefaultHttpClient client = new DefaultHttpClient();
-            HttpGet get = new HttpGet(url.toURI());
-            HttpResponse resp = client.execute(get);
-            String content = EntityUtils.toString(resp.getEntity());
-            Document doc = Jsoup.parse(content);
-            Elements masthead = doc.select(selectedItem);
             return masthead;
         }
 

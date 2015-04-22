@@ -98,14 +98,14 @@ public class PostORM {
 
         Post post = null;
         if(database != null) {
-            Log.i(TAG, "Loading Post[" + link + "]...");
+            Log.i(TAG, "Loading Post in 'findPostByLink' [" + link + "] ...");
             Cursor cursor = database.rawQuery("SELECT * FROM " + PostORM.TABLE_NAME + " WHERE " + PostORM.COLUMN_URL + " = "
                     + "'" + link + "'", null);
 
             if(cursor.getCount() > 0 ) {
                 cursor.moveToFirst();
                 post = cursorToPost(cursor);
-                Log.i(TAG, "Post loaded successfully!");
+                Log.i(TAG, "Post in 'findPostByLink' successfully loaded!");
             }
         }
 

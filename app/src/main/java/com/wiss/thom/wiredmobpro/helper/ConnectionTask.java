@@ -62,12 +62,25 @@ public class ConnectionTask extends AsyncTask<Void, Void, Void> {
                     if(element.attr("role").equals("listitem")){
                         break;
                     }
-                    Post post = new Post();
+
                     Elements linkElmt = element.getElementsByTag("a");
                     String detailedURL = linkElmt.attr("href");
+
+                    try {
+                        if (PostORM.findPostByLink(context, detailedURL).getUrl() == null ||
+                                detailedURL.equals(PostORM.findPostByLink(context, detailedURL).getUrl())) {
+                            Log.d(TAG, "Post is already in database");
+                            continue;
+                        }
+                    }catch(NullPointerException e){
+                        Log.d(TAG, "Post is empty -> continue");
+                    }
+
+                    Post post = new Post();
                     post.setUrl(detailedURL);  // linkToArticle
                     post.setTitle(element.getElementsByTag("h2").text());  // title
                     post.setPreview(element.getElementsByTag("p").text());   // preview text
+                    post.setPostedDate(element.getElementsByTag("time").text());  // posted date
                     Elements imageElement = element.getElementsByTag("img");
                     String relSrc = imageElement.attr("data-lazy-src");
                     InputStream inputStream = openHttpConnection(new URL(relSrc));

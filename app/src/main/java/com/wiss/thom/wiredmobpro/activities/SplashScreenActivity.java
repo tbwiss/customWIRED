@@ -57,7 +57,7 @@ public class SplashScreenActivity extends Activity {
         new PreFetchTask(this, seUrl, Categories.security).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
-    private void startMainActivity(){
+    private synchronized void startMainActivity(){
         if(counter <= 1){
             Log.i(TAG, "Wait for all PreFetchTasks to end.. ");
         }else{

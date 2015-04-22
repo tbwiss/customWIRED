@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * Created by Thomas on 15.04.2015.
  */
-public class Post implements Serializable{
+public class Post implements Serializable, Comparable<Post>{
 
 
 
@@ -25,6 +25,16 @@ public class Post implements Serializable{
         private String author;
 
         public Post(){
+        }
+
+
+        @Override
+        public int compareTo(Post post) {
+            if(this == post)
+                return 0;
+            if (getPostedDate() == null || post.getPostedDate() == null)
+                return 0;
+            return getPostedDate().compareTo(post.getPostedDate());
         }
 
         public String getPostedDate() {

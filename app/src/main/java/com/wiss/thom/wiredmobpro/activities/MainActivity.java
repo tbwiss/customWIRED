@@ -2,15 +2,13 @@ package com.wiss.thom.wiredmobpro.activities;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.view.Window;
+
 
 import com.wiss.thom.wiredmobpro.R;
 import com.wiss.thom.wiredmobpro.adapter.TabsPagerAdapter;
@@ -22,20 +20,26 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 
+
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
     private static final String TAG = "MainActivity";
+
+
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
     private ActionBar actionBar;
-
     // Tab titles
-    public static final String[] tabs = { "Business", "Design", "Entertainment", "Gear","Science","Security" };
+    public static final String[] tabs = { "BUSINESS", "DESIGN", "ENTERTAINMENT", "GEAR","SCIENCE","SECURITY" };
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // ------------ Fetch all Data in Internet --------------
 
         URL sUrl = null;
         URL gUrl = null;
@@ -57,10 +61,13 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         new ConnectionTask(this, eUrl, Categories.entertainment).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new ConnectionTask(this, dUrl, Categories.design).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
+
+        //------------------------- ViewPager and TabsPager -----------------------
+
         // Initilization
         viewPager = (ViewPager) findViewById(R.id.pager);
         actionBar = getActionBar();
-        mAdapter = new TabsPagerAdapter(getSupportFragmentManager(),this);
+        mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
 
         viewPager.setAdapter(mAdapter);
         actionBar.setHomeButtonEnabled(false);
@@ -118,22 +125,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
+    // --------------------- TabsPager ---------------------------------------------------------
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
@@ -152,4 +145,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
     }
+
+
 }

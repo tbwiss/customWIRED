@@ -17,11 +17,9 @@ import com.wiss.thom.wiredmobpro.fragments.SecurityFragment;
  */
 public class TabsPagerAdapter extends FragmentPagerAdapter {
 
-    private Context context;
 
-    public TabsPagerAdapter(FragmentManager fragmentManager, Context context) {
+    public TabsPagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
-        this.context = context;
     }
 
     @Override
