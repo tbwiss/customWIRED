@@ -15,6 +15,8 @@ import android.widget.ListView;
 import com.wiss.thom.wiredmobpro.R;
 import com.wiss.thom.wiredmobpro.activities.DetailedArticle;
 import com.wiss.thom.wiredmobpro.adapter.CustomListAdapter;
+import com.wiss.thom.wiredmobpro.adapter.InfiniteScrollListener;
+import com.wiss.thom.wiredmobpro.helper.ConnectionTask;
 import com.wiss.thom.wiredmobpro.model.Categories;
 import com.wiss.thom.wiredmobpro.model.Post;
 import com.wiss.thom.wiredmobpro.model.PostORM;
@@ -30,6 +32,9 @@ public class BusinessFragment extends ListFragment {
 
     private static final String TAG = "BusinessFragment";
     private List<Post> list;
+    private CustomListAdapter adapter;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,8 +42,9 @@ public class BusinessFragment extends ListFragment {
 
         list = PostORM.getAllPostsByCategory(getActivity(), Categories.business);
         Collections.sort(list);
-        CustomListAdapter adapter = new CustomListAdapter(getActivity(), list);
+        adapter = new CustomListAdapter(getActivity(), list);
         setListAdapter(adapter);
+
         return rootView;
     }
 
@@ -53,5 +59,18 @@ public class BusinessFragment extends ListFragment {
         startActivity(intent);
 
         Log.d(TAG,"onListItemClick on position " + position + " with id " + id);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState){
+        getListView().setOnScrollListener(new InfiniteScrollListener(2) {
+            @Override
+            public void loadMore(int page, int totalItemsCount) {
+                //List<HashMap<String, String>> newData = loader.loadData();
+                //dataList.addAll(newData);
+                Log.d(TAG, "method loadMore()  page: " + page + " totalItemsCount: " + totalItemsCount);
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 }

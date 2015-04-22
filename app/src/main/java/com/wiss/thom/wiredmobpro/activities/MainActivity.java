@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MotionEvent;
+import android.view.View;
 
 
 import com.wiss.thom.wiredmobpro.R;
@@ -21,7 +23,7 @@ import java.net.URL;
 
 
 
-public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
+public class MainActivity extends FragmentActivity implements ActionBar.TabListener, View.OnTouchListener {
 
     private static final String TAG = "MainActivity";
 
@@ -147,4 +149,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     }
 
 
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        return false;
+    }
 }

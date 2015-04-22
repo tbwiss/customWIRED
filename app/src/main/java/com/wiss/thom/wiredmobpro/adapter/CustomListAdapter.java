@@ -34,6 +34,7 @@ public class CustomListAdapter extends ArrayAdapter<Post> {
         ViewHolder viewHolder;
         View rowView = convertView;
 
+
         if (rowView == null) {
             LayoutInflater inflater = context.getLayoutInflater();
             rowView = inflater.inflate(R.layout.list_single, null);
