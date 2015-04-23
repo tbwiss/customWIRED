@@ -159,6 +159,8 @@ public class DetailedArticle extends Activity {
                 postInside.setAuthor(detailedElement.getElementsByTag("span").first().text());  // author
                 postInside.setPhotographer(detailedElement.getElementsByTag("span").toggleClass("credit").text());  //photographer
                 Element mainElement = getFirstHtmlElement(url,containerMain); //main
+                Elements linkDetailedElmt = detailedElement.getElementsByTag("time");
+                postInside.setPostedDate(linkDetailedElmt.attr("pubdate"));  // posted date
 
                 if(mainElement.text() == null){
                     postInside.setMain(post.getPreview() + "...");  // no useful text, show preview
@@ -184,6 +186,11 @@ public class DetailedArticle extends Activity {
         @Override
         protected void onPostExecute(Void non){
 
+            if(post.getPostedDate() == null){
+                toUpdatePost.setPostedDate(postInside.getPostedDate());
+            }else{
+                toUpdatePost.setPostedDate(post.getPostedDate());
+            }
             toUpdatePost.setTimestamp(post.getTimestamp());
             toUpdatePost.setImage(post.getImage());
             toUpdatePost.setTitle(post.getTitle());
@@ -193,7 +200,6 @@ public class DetailedArticle extends Activity {
             toUpdatePost.setAuthor(postInside.getAuthor());
             toUpdatePost.setPhotographer(postInside.getPhotographer());
             toUpdatePost.setMain(postInside.getMain());
-            toUpdatePost.setPostedDate(post.getPostedDate());
 
             PostORM.updatePost(getBaseContext(), toUpdatePost);
 

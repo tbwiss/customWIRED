@@ -80,7 +80,8 @@ public class ConnectionTask extends AsyncTask<Void, Void, Void> {
                     post.setUrl(detailedURL);  // linkToArticle
                     post.setTitle(element.getElementsByTag("h2").text());  // title
                     post.setPreview(element.getElementsByTag("p").text());   // preview text
-                    post.setPostedDate(element.getElementsByTag("time").text());  // posted date
+                    Elements timeElements = (element.getElementsByTag("time"));
+                    post.setPostedDate(timeElements.attr("pubdate"));  // posted date
                     Elements imageElement = element.getElementsByTag("img");
                     String relSrc = imageElement.attr("data-lazy-src");
                     InputStream inputStream = openHttpConnection(new URL(relSrc));
