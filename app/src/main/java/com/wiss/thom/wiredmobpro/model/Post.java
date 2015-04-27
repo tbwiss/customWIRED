@@ -34,7 +34,7 @@ public class Post implements Serializable, Comparable<Post>{
                 return 0;
             if (getPostedDate() == null || post.getPostedDate() == null)
                 return 0;
-            return getPostedDate().compareTo(post.getPostedDate());
+            return post.getPostedDate().compareTo(getPostedDate());
         }
 
         public String getPostedDate() {

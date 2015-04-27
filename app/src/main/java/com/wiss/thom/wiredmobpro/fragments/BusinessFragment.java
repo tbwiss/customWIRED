@@ -39,12 +39,10 @@ public class BusinessFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_business_layout, container, false);
-
         list = PostORM.getAllPostsByCategory(getActivity(), Categories.business);
         Collections.sort(list);
         adapter = new CustomListAdapter(getActivity(), list);
         setListAdapter(adapter);
-
         return rootView;
     }
 

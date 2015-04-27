@@ -15,6 +15,8 @@ import com.wiss.thom.wiredmobpro.adapter.DatabaseWrapper;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -262,9 +264,38 @@ public class PostORM {
             }
             Log.i(TAG, "Posts of category " + category + " loaded successfully.");
         }
-
-
         return postList;
+    }
+
+
+    public synchronized static void deleteCertainAmountOfPostsByCategory(Context context,String category,int threshold) {
+        DatabaseWrapper databaseWrapper = DatabaseWrapper.getInstance(context);
+        SQLiteDatabase database = databaseWrapper.getReadableDatabase();
+
+        Cursor cursor = database.rawQuery("SELECT * FROM " + PostORM.TABLE_NAME + " WHERE " + PostORM.COLUMN_BODY + " = "
+                + "'" + category + "'", null);
+
+        List<Post> postList = new ArrayList<>();
+
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                Post post = cursorToPost(cursor);
+                postList.add(post);
+                cursor.moveToNext();
+            }
+        }
+        if(postList.size() > threshold) {    // Wenn mehr als 20 Posts in DB dann die ältesten löschen.
+            Collections.sort(postList);
+            for (int i = 0; i < postList.size(); i++) {
+                if (i > 19) {
+                    String postToDelete = postList.get(i).getUrl();
+                    database.delete(PostORM.TABLE_NAME, PostORM.COLUMN_URL + "=" + "'" + postToDelete + "'", null);
+                    Log.i(TAG, "Removed " + postToDelete + " from database");
+                }
+            }
+        }
+
     }
 
 
