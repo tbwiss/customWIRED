@@ -285,7 +285,7 @@ public class PostORM {
                 cursor.moveToNext();
             }
         }
-        if(postList.size() > threshold) {    // Wenn mehr als 20 Posts in DB dann die ältesten löschen.
+        if(postList.size() > threshold) {    // Wenn mehr als 'threshold' Posts in DB dann die ältesten löschen.
             Collections.sort(postList);
             for (int i = 0; i < postList.size(); i++) {
                 if (i > 19) {

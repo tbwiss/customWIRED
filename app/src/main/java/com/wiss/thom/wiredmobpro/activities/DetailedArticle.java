@@ -110,7 +110,7 @@ public class DetailedArticle extends Activity {
 
         Post postUI = PostORM.findPostByLink(getBaseContext(), incomingLink);
 
-        if(postUI.getPhotographer().length() > 70){
+        if(postUI.getPhotographer() == null || postUI.getPhotographer().length() > 70){
             photographerTextView.setText("© by Condé Nast");
         }else{
             photographerTextView.setText("© by Condé Nast and " + postUI.getPhotographer());
