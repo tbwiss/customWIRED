@@ -148,7 +148,7 @@ public class DetailedArticle extends Activity {
 
 
             String containerDetailed = "header#post-header";
-            String containerMain = "div#start-of-content";
+            String containerMain = "article#start-of-content";
             StringBuilder stringBuilder = new StringBuilder();
 
             try {
