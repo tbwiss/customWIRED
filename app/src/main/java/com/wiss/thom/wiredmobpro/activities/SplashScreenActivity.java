@@ -98,9 +98,19 @@ public class SplashScreenActivity extends Activity {
                     if (element.attr("role").equals("listitem") || element.attr("itemtype").equals("http://schema.org/Article")) {
                         break;
                     }
-                    Post post = new Post();
                     Elements linkElmt = element.getElementsByTag("a");
                     String detailedURL = linkElmt.attr("href");
+
+                    try {
+                        if (PostORM.findPostByLink(context, detailedURL).getUrl() == null ||
+                                detailedURL.equals(PostORM.findPostByLink(context, detailedURL).getUrl())) {
+                            Log.d(TAG, "Post is already in database");
+                            continue;
+                        }
+                    }catch(NullPointerException e){
+                        Log.d(TAG, "Post is empty -> continue");
+                    }
+                    Post post = new Post();
                     post.setUrl(detailedURL);  // linkToArticle
                     post.setTitle(element.getElementsByTag("h2").text());  // title
                     post.setPreview(element.getElementsByTag("p").text());   // preview text

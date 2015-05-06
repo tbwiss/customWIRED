@@ -43,6 +43,7 @@ public class CustomListAdapter extends ArrayAdapter<Post> {
             viewHolder.previewTextView = (TextView) rowView.findViewById(R.id.itemPreview_single);
             viewHolder.titleTextView = (TextView) rowView.findViewById(R.id.itemTitle_single);
             viewHolder.postImageView = (ImageView) rowView.findViewById(R.id.icon_single);
+            viewHolder.postedDateView = (TextView) rowView.findViewById(R.id.postedDate_single);
             rowView.setTag(viewHolder);
 
         }
@@ -53,6 +54,7 @@ public class CustomListAdapter extends ArrayAdapter<Post> {
         if (postInside != null) {
             holder.previewTextView.setText(postInside.getPreview());
             holder.titleTextView.setText(postInside.getTitle());
+            holder.postedDateView.setText(postInside.getPostedDate());
             holder.postImageView.setImageBitmap(postInside.getImage());
         } else {
             Log.i("CustomListAdapter", "post is empty");
@@ -67,6 +69,7 @@ public class CustomListAdapter extends ArrayAdapter<Post> {
         private TextView previewTextView;
         private TextView titleTextView;
         private ImageView postImageView;
+        private TextView postedDateView;
     }
 
 
