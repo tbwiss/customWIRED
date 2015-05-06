@@ -89,6 +89,7 @@ public class DetailedArticle extends Activity {
     }
 
     public void onClickLinkToWebsite(View v){
+        // Link zur Website => incomingLink
         Intent in = new Intent(Intent.ACTION_VIEW);
         in.setData(Uri.parse(incomingLink));
         startActivity(in);
@@ -105,7 +106,6 @@ public class DetailedArticle extends Activity {
         TextView titleTextView = (TextView) findViewById(R.id.detailed_textViewTitle);
         TextView dateTextView = (TextView) findViewById(R.id.detailed_textViewPostedDate);
         TextView categoryTextView = (TextView) findViewById(R.id.detailed_textViewCategory);
-        TextView linkTextView = (TextView) findViewById(R.id.detailed_textViewLink);
         ImageView imageView = (ImageView) findViewById(R.id.detailed_imageView);
 
         Post postUI = PostORM.findPostByLink(getBaseContext(), incomingLink);
@@ -121,7 +121,6 @@ public class DetailedArticle extends Activity {
         mainTextView.setText(postUI.getMain());
         dateTextView.setText(postUI.getPostedDate());
         authorTextView.setText(postUI.getAuthor());
-        linkTextView.setText(postUI.getUrl());
     }
 
 

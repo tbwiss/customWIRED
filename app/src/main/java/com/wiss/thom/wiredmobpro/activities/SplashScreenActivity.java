@@ -44,17 +44,17 @@ public class SplashScreenActivity extends Activity {
         setContentView(R.layout.layout_load_activity);
 
         URL businessUrl = null;
-        URL seUrl = null;
+        URL deURL = null;
 
         try {
             businessUrl = new URL(Categories.businessURL);
-            seUrl = new URL(Categories.securityURL);
+             deURL = new URL(Categories.designURL);
         } catch (MalformedURLException e) {
             Log.i(TAG, "Failure in URL: " + e.getMessage());
         }
 
         new PreFetchTask(this, businessUrl, Categories.business).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new PreFetchTask(this, seUrl, Categories.security).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new PreFetchTask(this,  deURL, Categories.design).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private synchronized void startMainActivity(){
@@ -95,7 +95,7 @@ public class SplashScreenActivity extends Activity {
 
                 Elements allElements = getListOfElement(url, container);
                 for (Element element : allElements) {
-                    if (element.attr("role").equals("listitem")) {
+                    if (element.attr("role").equals("listitem") || element.attr("itemtype").equals("http://schema.org/Article")) {
                         break;
                     }
                     Post post = new Post();
@@ -104,6 +104,8 @@ public class SplashScreenActivity extends Activity {
                     post.setUrl(detailedURL);  // linkToArticle
                     post.setTitle(element.getElementsByTag("h2").text());  // title
                     post.setPreview(element.getElementsByTag("p").text());   // preview text
+                    Elements timeElements = (element.getElementsByTag("time"));
+                    post.setPostedDate(timeElements.attr("pubdate"));  // posted date
                     Elements imageElement = element.getElementsByTag("img");
                     String relSrc = imageElement.attr("data-lazy-src");
                     InputStream inputStream = openHttpConnection(new URL(relSrc));

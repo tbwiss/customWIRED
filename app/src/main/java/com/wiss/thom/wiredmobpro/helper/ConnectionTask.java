@@ -59,7 +59,7 @@ public class ConnectionTask extends AsyncTask<Void, Void, Void> {
 
                 Elements allElements = getListOfElement(url,container);
                 for(Element element : allElements){
-                    if(element.attr("role").equals("listitem")){
+                    if(element.attr("role").equals("listitem") || element.attr("itemtype").equals("http://schema.org/Article")){
                         break;
                     }
 

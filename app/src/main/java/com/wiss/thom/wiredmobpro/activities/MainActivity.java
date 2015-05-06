@@ -52,16 +52,16 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             sUrl = new URL(Categories.scienceURL);
             gUrl = new URL(Categories.gearURL);
             eUrl = new URL(Categories.entertainmentURL);
-            dUrl = new URL(Categories.designURL);
+            dUrl = new URL(Categories.securityURL);
         }catch(MalformedURLException e){
             Log.i(TAG, "Failure in URL: " + e.getMessage());
         }
 
         // Content aus Internet laden
+        new ConnectionTask(this, eUrl, Categories.entertainment).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new ConnectionTask(this, sUrl, Categories.science).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new ConnectionTask(this, gUrl, Categories.gear).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new ConnectionTask(this, eUrl, Categories.entertainment).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new ConnectionTask(this, dUrl, Categories.design).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new ConnectionTask(this, dUrl, Categories.security).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
         //------------------------- ViewPager and TabsPager -----------------------

@@ -134,32 +134,13 @@
             android:layout_height="2dp"
             android:background="#c0c0c0"/>
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Visit Website"
+            android:id="@+id/button_visitWebsite"
+            android:onClick="onClickLinkToWebsite"/>
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="65dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="See on webpage: "
-                android:id="@+id/detailed_seeWebpage"
-                android:textStyle="bold|italic"
-                android:textSize="15dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/detailed_textViewLink"
-                android:onClick="onClickLinkToWebsite"
-                android:layout_below="@+id/detailed_seeWebpage"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:textColor="#ff1f67f1" />
-        </RelativeLayout>
 
     </LinearLayout>
 
