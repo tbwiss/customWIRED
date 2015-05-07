@@ -54,7 +54,13 @@ public class CustomListAdapter extends ArrayAdapter<Post> {
         if (postInside != null) {
             holder.previewTextView.setText(postInside.getPreview());
             holder.titleTextView.setText(postInside.getTitle());
-            holder.postedDateView.setText(postInside.getPostedDate());
+            String postedDate = postInside.getPostedDate();
+            String[] parts = postedDate.split(",");
+            if(parts[0] != null){
+                holder.postedDateView.setText(parts[0]);
+            }else{
+                holder.postedDateView.setText(postInside.getPostedDate());
+            }
             holder.postImageView.setImageBitmap(postInside.getImage());
         } else {
             Log.i("CustomListAdapter", "post is empty");

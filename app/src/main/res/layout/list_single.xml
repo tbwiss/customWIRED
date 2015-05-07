@@ -43,9 +43,12 @@
         android:layout_height="wrap_content"
         android:id="@+id/postedDate_single"
         android:layout_alignStart="@+id/icon_single"
-        android:layout_alignParentTop="true"
         android:layout_toStartOf="@+id/itemTitle_single"
-        android:textStyle="italic"
-        android:textSize="12dp" />
+        android:textStyle="normal|bold"
+        android:textSize="12dp"
+        android:textColor="#c9857d75"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="0dp"
+        android:textAlignment="center" />
 
 </RelativeLayout>
