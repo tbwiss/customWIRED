@@ -33,21 +33,21 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
 
         switch (index) {
             case 0:
-                PostORM.deleteCertainAmountOfPostsByCategory(activity, Categories.business,21);
-                PostORM.deleteCertainAmountOfPostsByCategory(activity, Categories.design,21);
+                PostORM.deleteCertainAmountOfPostsByCategory(activity, Categories.business,16);
+                PostORM.deleteCertainAmountOfPostsByCategory(activity, Categories.design,16);
                 return new BusinessFragment();
             case 1:
-                PostORM.deleteCertainAmountOfPostsByCategory(activity, Categories.entertainment,21);
+                PostORM.deleteCertainAmountOfPostsByCategory(activity, Categories.entertainment,16);
                 return new DesignFragment();
             case 2:
-                PostORM.deleteCertainAmountOfPostsByCategory(activity, Categories.entertainment,21);
-                PostORM.deleteCertainAmountOfPostsByCategory(activity, Categories.gear,21);
+                PostORM.deleteCertainAmountOfPostsByCategory(activity, Categories.entertainment,16);
+                PostORM.deleteCertainAmountOfPostsByCategory(activity, Categories.gear,16);
                 return new EntertainmentFragment();
             case 3:
-                PostORM.deleteCertainAmountOfPostsByCategory(activity, Categories.science,21);
+                PostORM.deleteCertainAmountOfPostsByCategory(activity, Categories.science,16);
                 return new GearFragment();
             case 4:
-                PostORM.deleteCertainAmountOfPostsByCategory(activity, Categories.security,21);
+                PostORM.deleteCertainAmountOfPostsByCategory(activity, Categories.security,16);
                 return new ScienceFragment();
             case 5:
                 return new SecurityFragment();
