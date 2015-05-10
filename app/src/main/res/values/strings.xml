@@ -4,4 +4,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_splash_screen">customWIRED</string>
+    <string name="title_activity_web_view">webView</string>
+    <string name="title_activity_font_size_settings">fontSizeSettings</string>
 </resources>

@@ -9,6 +9,7 @@
         android:icon="@mipmap/wire_logo"
         android:label="@string/app_name"
         android:theme="@style/AppThemeLight" >
+
         <!-- Splash screen -->
         <activity
             android:name=".activities.SplashScreenActivity"
@@ -17,7 +18,8 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>>
+            </intent-filter>
+>
         </activity>
         <!-- Main Activity -->
         <activity
@@ -26,7 +28,15 @@
         </activity>
         <!-- Detailed Article -->
         <activity android:name=".activities.DetailedArticle" />
+        <activity
+            android:name=".activities.webView"
+            android:label="@string/app_name" >
 
+        </activity>
+        <activity
+            android:name=".activities.fontSizeSettings"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>

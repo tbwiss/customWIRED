@@ -2,10 +2,13 @@ package com.wiss.thom.wiredmobpro.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
@@ -41,6 +44,7 @@ public class DetailedArticle extends Activity {
     private Post post;
     private Post toUpdatePost;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +66,6 @@ public class DetailedArticle extends Activity {
         }else{
             showContentOnScreen();
         }
-
     }
 
 
@@ -70,6 +73,7 @@ public class DetailedArticle extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_detailed_article, menu);
+
         return true;
     }
 
@@ -80,19 +84,39 @@ public class DetailedArticle extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        //Startet Activity für Anpassung der Schriftgrösse
         if (id == R.id.action_settings) {
+            Intent i = new Intent(this, fontSizeSettings.class);
+            startActivityForResult(i, 1);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+
     public void onClickLinkToWebsite(View v){
         // Link zur Website => incomingLink
-        Intent in = new Intent(Intent.ACTION_VIEW);
+        Intent in = new Intent(this, webView.class);
         in.setData(Uri.parse(incomingLink));
         startActivity(in);
+    }
+
+    public void changeFontSize(){
+        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        String fontSize = SP.getString("schriftgroesse", "1");
+        TextView mainTextView = (TextView) findViewById(R.id.detailed_textViewMain);
+
+        switch (fontSize){
+            case "1":
+                mainTextView.setTextSize(14);
+
+            case "2":
+                mainTextView.setTextSize(18);
+
+            case "3":
+                mainTextView.setTextSize(22);
+        }
     }
 
 
@@ -121,6 +145,7 @@ public class DetailedArticle extends Activity {
         mainTextView.setText(postUI.getMain());
         dateTextView.setText(postUI.getPostedDate());
         authorTextView.setText(postUI.getAuthor());
+        changeFontSize();
     }
 
 
@@ -224,8 +249,5 @@ public class DetailedArticle extends Activity {
         }
 
     }
-
-
-
 
 }
