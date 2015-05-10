@@ -43,6 +43,9 @@ public class DetailedArticle extends Activity {
     private String incomingLink;
     private Post post;
     private Post toUpdatePost;
+    private TextView mainTextView;
+    private TextView titleTextView;
+    private TextView authorTextView;
 
 
     @Override
@@ -68,6 +71,14 @@ public class DetailedArticle extends Activity {
         }
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(mainTextView != null){
+            changeFontSize();
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -86,8 +97,8 @@ public class DetailedArticle extends Activity {
 
         //Startet Activity für Anpassung der Schriftgrösse
         if (id == R.id.action_settings) {
-            Intent i = new Intent(this, fontSizeSettings.class);
-            startActivityForResult(i, 1);
+            Intent intent = new Intent(this, fontSizeSettings.class);
+            startActivity(intent);
             return true;
         }
 
@@ -103,19 +114,30 @@ public class DetailedArticle extends Activity {
     }
 
     public void changeFontSize(){
-        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        String fontSize = SP.getString("schriftgroesse", "1");
-        TextView mainTextView = (TextView) findViewById(R.id.detailed_textViewMain);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        String fontSize = sharedPreferences.getString("schriftgroesse", "1");
+
 
         switch (fontSize){
             case "1":
                 mainTextView.setTextSize(14);
-
+                authorTextView.setTextSize(14);
+                titleTextView.setTextSize(19);
+                break;
             case "2":
                 mainTextView.setTextSize(18);
-
+                authorTextView.setTextSize(16);
+                titleTextView.setTextSize(22);
+                break;
             case "3":
                 mainTextView.setTextSize(22);
+                authorTextView.setTextSize(20);
+                titleTextView.setTextSize(24);
+                break;
+            default:
+                mainTextView.setTextSize(14);
+                authorTextView.setTextSize(14);
+                titleTextView.setTextSize(19);
         }
     }
 
@@ -124,10 +146,10 @@ public class DetailedArticle extends Activity {
 
         setContentView(R.layout.activity_detailed_article);
 
-        TextView mainTextView = (TextView) findViewById(R.id.detailed_textViewMain);
+        mainTextView = (TextView) findViewById(R.id.detailed_textViewMain);
         TextView photographerTextView = (TextView) findViewById(R.id.detailed_textViewPhotographer);
-        TextView authorTextView = (TextView) findViewById(R.id.detailed_textViewAuthor);
-        TextView titleTextView = (TextView) findViewById(R.id.detailed_textViewTitle);
+        authorTextView = (TextView) findViewById(R.id.detailed_textViewAuthor);
+        titleTextView = (TextView) findViewById(R.id.detailed_textViewTitle);
         TextView dateTextView = (TextView) findViewById(R.id.detailed_textViewPostedDate);
         TextView categoryTextView = (TextView) findViewById(R.id.detailed_textViewCategory);
         ImageView imageView = (ImageView) findViewById(R.id.detailed_imageView);

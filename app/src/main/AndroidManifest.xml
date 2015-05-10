@@ -28,6 +28,7 @@
         </activity>
         <!-- Detailed Article -->
         <activity android:name=".activities.DetailedArticle" />
+
         <activity
             android:name=".activities.webView"
             android:label="@string/app_name" >
